@@ -10,7 +10,7 @@ public class BowlingGM {
 			SPARE,
 			STRIKE
 	}
-	protected State currentState;
+	protected static State currentState;
 	protected static List<Frame> frames;
 	protected int currentFrameIndex;
 	protected FrameManager fm;
@@ -20,7 +20,7 @@ public class BowlingGM {
 	private int framesAmount = 10;
 	
 	public BowlingGM() {
-		this.currentState = State.NORMAL;
+		currentState = State.NORMAL;
 		frames = new ArrayList<>();
 		this.currentFrameIndex = 0;
 		this.totalPoints = 0;
@@ -31,6 +31,7 @@ public class BowlingGM {
 		for (int i = 0; i < framesAmount; i++) {
 			frames.add(new Frame(i));
 		}
+		System.out.println("Frames created");
 	}
 	
 	public void throwBall(int pinsHit) {
@@ -41,13 +42,13 @@ public class BowlingGM {
 		boolean scored = frames.get(this.currentFrameIndex).scorePoint(pinsHit);
 		if (scored == false) {
 			this.currentFrameIndex++;
-			this.throwBall();
+			this.throwBall(pinsHit);
 		}
 	}
 	
 	//throwBall with random score
 	public void throwBall() {
-		this.throwBall((int)(Math.random() * 11));
+		this.throwBall((int)(Math.random() * 6));
 	}
 	
 	
@@ -58,6 +59,14 @@ public class BowlingGM {
 	
 	public void setCurrentFrame(int currentFrame) {
 		this.currentFrameIndex = currentFrame;
+	}
+	
+	public String toString() {
+		String result = "";
+		for (Frame frame : frames) {
+			result += frame + " | ";
+		}
+		return result;
 	}
 
 }
