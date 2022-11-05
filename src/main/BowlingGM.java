@@ -5,26 +5,17 @@ import java.util.List;
 
 public class BowlingGM {
 	
-	enum State {
-			NORMAL,
-			SPARE,
-			STRIKE
-	}
-	protected static State currentState;
 	protected static List<Frame> frames;
 	protected int currentFrameIndex;
-	protected FrameManager fm;
 	
 	protected int totalPoints;
 	
 	private int framesAmount = 10;
 	
 	public BowlingGM() {
-		currentState = State.NORMAL;
 		frames = new ArrayList<>();
 		this.currentFrameIndex = 0;
 		this.totalPoints = 0;
-		this.fm = new FrameManager(frames);
 	}
 	
 	public void startGame() {
@@ -39,11 +30,12 @@ public class BowlingGM {
 			System.out.println("game has ended");
 			return;
 		}
-		boolean scored = frames.get(this.currentFrameIndex).scorePoint(pinsHit);
-		if (scored == false) {
+		Frame currentFrame = frames.get(this.currentFrameIndex);
+		if (currentFrame.isCompleted() == true) {
 			this.currentFrameIndex++;
-			this.throwBall(pinsHit);
+			currentFrame = frames.get(this.currentFrameIndex);
 		}
+		frames.get(this.currentFrameIndex).scorePoint(pinsHit);
 	}
 	
 	//throwBall with random score
