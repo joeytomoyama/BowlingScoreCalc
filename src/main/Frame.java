@@ -8,6 +8,7 @@ public class Frame {
 	protected int[] scores = new int[]{0, 0};
 	protected int frameScore;
 	protected int scoreCount;
+	protected boolean completed;
 
 //	private int pinCount = 10;
 
@@ -15,6 +16,7 @@ public class Frame {
 		this.frameID = frameID;
 		this.frameScore = 0;
 		this.scoreCount = 0;
+		this.completed = false;
 //		System.out.println("New Frame #" + this.frameID);
 	}
 	

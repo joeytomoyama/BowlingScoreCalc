@@ -14,7 +14,6 @@ public class Main {
 		gm.throwBall(3);
 		gm.throwBall(1);
 		gm.throwBall(3);
-		System.out.println();
 		System.out.println(gm);
 	}
 }

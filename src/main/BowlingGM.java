@@ -62,9 +62,9 @@ public class BowlingGM {
 	}
 	
 	public String toString() {
-		String result = "";
+		String result = "\n";
 		for (Frame frame : frames) {
-			result += frame + " | ";
+			result += frame + "\n";
 		}
 		return result;
 	}
