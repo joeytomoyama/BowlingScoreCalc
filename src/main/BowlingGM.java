@@ -26,7 +26,7 @@ public class BowlingGM {
 	}
 	
 	public void throwBall(int pinsHit) {
-		if (this.currentFrameIndex >= 10) {
+		if (frames.get(frames.size() - 1).isCompleted()) {
 			System.out.println("game has ended");
 			return;
 		}
@@ -35,12 +35,21 @@ public class BowlingGM {
 			this.currentFrameIndex++;
 			currentFrame = frames.get(this.currentFrameIndex);
 		}
-		frames.get(this.currentFrameIndex).scorePoint(pinsHit);
+		currentFrame.scorePoint(pinsHit);
 	}
 	
 	//throwBall with random score
 	public void throwBall() {
 		this.throwBall((int)(Math.random() * 6));
+	}
+
+	public static int getTotalScore(int frameLimit) {
+		int sum = 0;
+		for (int i = 0; i < frameLimit; i++) {
+			Frame fr = frames.get(i);
+			sum += fr.calcFrameScore();
+		}
+		return sum;
 	}
 	
 	

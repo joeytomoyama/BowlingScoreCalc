@@ -3,12 +3,8 @@ package main;
 public class Main {
 	
 	public static void main(String[] args) {
-		System.out.println(FrameManager.getCurrentState());
 		BowlingGM gm = new BowlingGM();
 		gm.startGame();
-//		for (int i = 0; i < 10	; i++) {
-//			fm.throwBall();
-//		}
 		gm.throwBall(1);
 		gm.throwBall(4);
 		//
@@ -36,6 +32,8 @@ public class Main {
 		//
 		gm.throwBall(2);
 		gm.throwBall(6);
+		//
 		System.out.println(gm);
+		System.out.println(BowlingGM.getTotalScore(10));
 	}
 }

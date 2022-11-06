@@ -14,8 +14,6 @@ public class FrameManager {
 	protected static int totalScore = 0;
 
 	public FrameManager() {
-		// currentState = State.NORMAL;
-		// totalScore = 0;
 	}
 
 	public static void setPrevFrame(int index, int score) {

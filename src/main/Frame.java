@@ -6,14 +6,12 @@ public class Frame {
 	
 	protected int frameIndex;
 	protected int[] scores = new int[]{0, 0};
-	protected int frameScore;
 	protected int transferedScore;
 	protected int scoreCount;
 	protected boolean completed;
 
 	public Frame(int frameIndex) {
 		this.frameIndex = frameIndex;
-		this.frameScore = 0;
 		this.transferedScore = 0;
 		this.scoreCount = 0;
 		this.completed = false;
@@ -24,6 +22,8 @@ public class Frame {
 		this.scores[this.scoreCount] = score;
 		System.out.println("scored: " + score + " | " + FrameManager.getCurrentState());
 		this.scoreCount++;
+		//transfer score to previous frame(spare)
+		if (FrameManager.isSpare()) FrameManager.setPrevFrame(frameIndex, score);
 		// check strike
 		if (score == 10) {
 			FrameManager.setCurrentState(State.STRIKE);
@@ -33,20 +33,15 @@ public class Frame {
 		boolean twoRoundsCompleted = this.scoreCount > this.scores.length - 1;
 		if (twoRoundsCompleted) {
 			this.completed = true;
-			BowlingGM.totalPoints += this.calcFrameScore();
 			// transfer score to previous frame(strike)
 			boolean previousIsStrike = FrameManager.isStrike();
 			if (previousIsStrike) {
 				FrameManager.setPrevFrame(frameIndex, this.calcFrameScore());
 			}
 			// check spare
-			// if (this.calcFrameScore() >= 10) FrameManager.setCurrentState(State.SPARE);
+			if (this.calcFrameScore() >= 10) FrameManager.setCurrentState(State.SPARE);	// maybe setup new variable instead of using calcFrameScore
 		}
 	}
-
-	// public void transferScore() {
-		
-	// }
 	
 	public int calcFrameScore() {
 		return this.scores[0] + this.scores[1] + this.transferedScore;
@@ -54,23 +49,20 @@ public class Frame {
 	
 	public void transferScore(int points) {
 		this.transferedScore = points;
-		// this.setScore(this.getScore() + points);
 	}
 	
 	
-	public int getScore() {
-		return this.frameScore;
-	}
-	
-	public void setScore(int score) {
-		this.frameScore = score;
-	}
+
+	// public void setScore(int score) {
+	// 	this.frameScore = score;
+	// }
 
 	public boolean isCompleted() {
 		return this.completed;
 	}
 	
 	public String toString() {
-		return String.format("Frame #%d: %d - %d(%d) | %d", this.frameIndex, this.scores[0], this.scores[1], this.calcFrameScore(), BowlingGM.totalPoints);
+		return String.format("Frame #%2d: %2d - %2d(%2d) | %3d",
+		this.frameIndex, this.scores[0], this.scores[1], this.calcFrameScore(), BowlingGM.getTotalScore(frameIndex + 1));
 	}
 }
