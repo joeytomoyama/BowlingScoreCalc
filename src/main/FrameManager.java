@@ -18,8 +18,9 @@ public class FrameManager {
 		// totalScore = 0;
 	}
 
-	public static Frame getPrevFrame(int index) {
-		return BowlingGM.frames.get(index - 1);
+	public static void setPrevFrame(int index, int score) {
+		BowlingGM.frames.get(index - 1).transferScore(score);;
+		currentState = State.NORMAL;
 	}
 
 	public static boolean isStrike() {

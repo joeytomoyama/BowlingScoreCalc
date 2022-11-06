@@ -8,14 +8,14 @@ public class BowlingGM {
 	protected static List<Frame> frames;
 	protected int currentFrameIndex;
 	
-	protected int totalPoints;
+	protected static int totalPoints;
 	
 	private int framesAmount = 10;
 	
 	public BowlingGM() {
 		frames = new ArrayList<>();
 		this.currentFrameIndex = 0;
-		this.totalPoints = 0;
+		totalPoints = 0;
 	}
 	
 	public void startGame() {

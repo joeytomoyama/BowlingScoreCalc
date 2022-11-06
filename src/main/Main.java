@@ -27,7 +27,10 @@ public class Main {
 		gm.throwBall(1);
 		//
 		gm.throwBall(7);
+		gm.throwBall(3);
+		//
 		gm.throwBall(6);
+		gm.throwBall(4);
 		//
 		gm.throwBall(10);
 		//

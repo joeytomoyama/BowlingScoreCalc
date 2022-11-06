@@ -17,7 +17,6 @@ public class Frame {
 		this.transferedScore = 0;
 		this.scoreCount = 0;
 		this.completed = false;
-//		System.out.println("New Frame #" + this.frameIndex);
 	}
 	
 	public void scorePoint(int score) {
@@ -34,15 +33,20 @@ public class Frame {
 		boolean twoRoundsCompleted = this.scoreCount > this.scores.length - 1;
 		if (twoRoundsCompleted) {
 			this.completed = true;
+			BowlingGM.totalPoints += this.calcFrameScore();
 			// transfer score to previous frame(strike)
-			if (FrameManager.isStrike()) {
-				FrameManager.getPrevFrame(frameIndex).transferScore(this.calcFrameScore());
-				FrameManager.setNormal();
+			boolean previousIsStrike = FrameManager.isStrike();
+			if (previousIsStrike) {
+				FrameManager.setPrevFrame(frameIndex, this.calcFrameScore());
 			}
 			// check spare
 			// if (this.calcFrameScore() >= 10) FrameManager.setCurrentState(State.SPARE);
 		}
 	}
+
+	// public void transferScore() {
+		
+	// }
 	
 	public int calcFrameScore() {
 		return this.scores[0] + this.scores[1] + this.transferedScore;
@@ -67,6 +71,6 @@ public class Frame {
 	}
 	
 	public String toString() {
-		return String.format("Frame #%d: %d - %d(%d) | %d", this.frameIndex, this.scores[0], this.scores[1], this.calcFrameScore(), FrameManager.getTotalScore());
+		return String.format("Frame #%d: %d - %d(%d) | %d", this.frameIndex, this.scores[0], this.scores[1], this.calcFrameScore(), BowlingGM.totalPoints);
 	}
 }
