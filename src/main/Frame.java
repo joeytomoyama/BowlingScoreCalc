@@ -1,7 +1,5 @@
 package main;
 
-import main.FrameManager.State;
-
 public class Frame {
 	
 	protected int frameIndex;
@@ -26,7 +24,7 @@ public class Frame {
 		if (FrameManager.isSpare()) FrameManager.setPrevFrame(frameIndex, score);
 		// check strike
 		if (score == 10) {
-			FrameManager.setCurrentState(State.STRIKE);
+			FrameManager.setStrike();
 			this.completed = true;
 		}
 		// check if frame completed
@@ -39,7 +37,7 @@ public class Frame {
 				FrameManager.setPrevFrame(frameIndex, this.calcFrameScore());
 			}
 			// check spare
-			if (this.calcFrameScore() >= 10) FrameManager.setCurrentState(State.SPARE);	// maybe setup new variable instead of using calcFrameScore
+			if (this.calcFrameScore() >= 10) FrameManager.setSpare();;	// maybe setup new variable instead of using calcFrameScore
 		}
 	}
 	
